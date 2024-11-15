@@ -1,7 +1,9 @@
 package com.shuke.springbootinit.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shuke.springbootinit.domain.User;
+import com.shuke.springbootinit.domain.vo.PageVo;
 import com.shuke.springbootinit.mapper.UserMapper;
 import com.shuke.springbootinit.service.UserService;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService {
 
+    @Override
+    public Page<User> findByPage(PageVo pageVo) {
+        return baseMapper.selectPage(new Page<>(pageVo.getPageNum(),pageVo.getPageSize()),null);
+    }
 }
 
 

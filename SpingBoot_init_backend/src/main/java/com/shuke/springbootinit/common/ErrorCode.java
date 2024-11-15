@@ -2,7 +2,7 @@ package com.shuke.springbootinit.common;
 
 /**
  * @ClassName: ErrorCode
- * @Description:
+ * @Description:  自定义错误码
  * @author: 舒克、舒克
  * @Date: 2024/11/15 14:32
  */

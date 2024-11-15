@@ -2,7 +2,7 @@ package com.shuke.springbootinit.common;
 
 /**
  * @ClassName: Results
- * @Description:
+ * @Description:  返回工具类
  * @author: 舒克、舒克
  * @Date: 2024/11/15 14:37
  */

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @ClassName: BaseResponse
- * @Description:
+ * @Description:  统一结果类
  * @author: 舒克、舒克
  * @Date: 2024/11/15 14:28
  */
