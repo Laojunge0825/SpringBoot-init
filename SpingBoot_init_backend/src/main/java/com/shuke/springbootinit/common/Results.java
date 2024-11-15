@@ -29,4 +29,8 @@ public class Results {
     public static BaseResponse error(ErrorCode errorCode){
         return new BaseResponse(errorCode);
     }
+
+    public static BaseResponse error(int code, String message) {
+        return new BaseResponse(code,message,null);
+    }
 }
