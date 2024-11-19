@@ -4,19 +4,26 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shuke.springbootinit.common.ErrorCode;
+import com.shuke.springbootinit.config.JwtProperty;
 import com.shuke.springbootinit.domain.User;
 import com.shuke.springbootinit.domain.vo.LoginUserVo;
 import com.shuke.springbootinit.domain.vo.PageVo;
 import com.shuke.springbootinit.exception.BaseException;
 import com.shuke.springbootinit.mapper.UserMapper;
 import com.shuke.springbootinit.service.UserService;
+import com.shuke.springbootinit.util.JWTUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.shuke.springbootinit.constant.UserConstant.USER_ID;
 import static com.shuke.springbootinit.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
@@ -29,6 +36,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService {
 
     private static final String SALT = "shuke";
+
+    @Autowired
+    private JwtProperty jwtProperty;
 
     @Override
     public Page<User> findByPage(PageVo pageVo) {
@@ -76,6 +86,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         // 记录用户的登录态
         request.getSession().setAttribute(USER_LOGIN_STATE,u);
+        // 登录成功后，生成token
+        Map<String , Object > clamis = new HashMap<>();
+        clamis.put(USER_ID,u.getId());
+        System.out.println(jwtProperty.getSecretKey());
+        System.out.println(jwtProperty.getTokenName());
+        String token = JWTUtil.creatToken(jwtProperty.getSecretKey(),jwtProperty.getExpiration(),clamis);
+        u.setToken(token);
         return this.getLoginUserVO(u);
     }
 

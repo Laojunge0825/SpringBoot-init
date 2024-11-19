@@ -9,4 +9,6 @@ package com.shuke.springbootinit.constant;
 public interface UserConstant {
 
     String USER_LOGIN_STATE = "user_login";
+
+    String USER_ID = "id";
 }
